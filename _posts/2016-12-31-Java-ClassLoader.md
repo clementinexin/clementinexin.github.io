@@ -314,5 +314,5 @@ method a invoked by Sample1
 
 > 此时得到正确的结果
 
-### 参考
+## 参考
 - [深入Java类加载器](https://www.ibm.com/developerworks/cn/java/j-lo-classloader/)
