@@ -108,7 +108,7 @@ tags: Java,classloader
 
 ### 2.1. loadClass流程
 
-![image]({{site.url}}/_images/classloader.png)
+![image]({{site.url}}/assets/classloader.png)
 
 > 整个流程就是先去检查该类是否已经加载，如果已经加载，那么看是否需要解析，如果没有加载，那么判断父加载器是否不为空，父加载器先去尝试加载，若父加载器为空，那么使用启动类加载器加载，加载完毕，调用findClass查找该二进制名字所对应的类
 
