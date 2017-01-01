@@ -51,14 +51,14 @@ kramdown生成目录的方式参考[Jekyll 目录树](https://www.zfanw.com/blog
 ## 五、后续
   真tm累啊，还没折腾出啥模样来，
   缺乏的东西还很多，折腾不动了
-- [ ] 添加了对标签的全套支持（原主题不支持 Tags ）
-- [ ]去掉引起挂起的 Web Font，添加适合中文世界的 font-family
-- [ ]大量 CSS 优化：包括适合中文阅读的字号字重改进，移动端交互优化。
-- [ ]Font-awesome (iconfont) 使用国内的七牛 CDN
-- [ ]使用 Github Flavored Markdown
-- [ ]使用 腾讯统计、百度统计
-- [ ]加入“多说” 评论支持
-- [ ]。。。
+- 添加了对标签的全套支持（原主题不支持 Tags ）
+- 去掉引起挂起的 Web Font，添加适合中文世界的 font-family
+- 大量 CSS 优化：包括适合中文阅读的字号字重改进，移动端交互优化。
+- Font-awesome (iconfont) 使用国内的七牛 CDN
+- 使用 Github Flavored Markdown
+- 使用 腾讯统计、百度统计
+- 加入“多说” 评论支持
+- 。。。
   后续估计也坚持不了多久，😄
 
 
