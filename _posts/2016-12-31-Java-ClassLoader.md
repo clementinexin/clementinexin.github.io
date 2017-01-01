@@ -8,7 +8,9 @@ categories: Java
 **Java类加载器**是Java应用系统在编译之后的将字节码从磁盘加载到计算机系统内存中的方式，主要的类加载器有以下几种
 
 - **启动类加载器** null 用C/C++实现，在JVM中不可见
+
 - **拓展类加载器** sun.misc.Launcher$ExtClassLoader
+
 - **应用类加载器** sun.misc.Launcher$AppClassLoader
 
 ---
@@ -20,7 +22,7 @@ categories: Java
 
 
 ## 2.类加载方法loadClass
-在JDK中，类加载的过程如下
+  在JDK中，类加载的过程如下
 
 ```plain
     /**
