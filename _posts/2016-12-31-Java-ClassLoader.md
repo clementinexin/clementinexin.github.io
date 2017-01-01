@@ -6,6 +6,7 @@ categories: Java
 ---
 
 **Java类加载器**是Java应用系统在编译之后的将字节码从磁盘加载到计算机系统内存中的方式，主要的类加载器有以下几种
+
 - **启动类加载器** null 用C/C++实现，在JVM中不可见
 - **拓展类加载器** sun.misc.Launcher$ExtClassLoader
 - **应用类加载器** sun.misc.Launcher$AppClassLoader
@@ -20,6 +21,7 @@ categories: Java
 
 ## 2.类加载方法loadClass
 在JDK中，类加载的过程如下
+
 ```plain
     /**
      * Loads the class with the specified <a href="#name">binary name</a>.  The
@@ -196,6 +198,7 @@ isresolve(no)->e
 ```
 
 项目目录
+
 ```plain
 .
 ├── [ 309]  JavaClassLoader.md
@@ -206,6 +209,7 @@ isresolve(no)->e
 ```
 
 ### 3.2. 使用默认系统的三种加载器
+
 ```java
 sun.misc.Launcher$AppClassLoader@73d16e93
 sun.misc.Launcher$ExtClassLoader@15db9742
@@ -280,6 +284,7 @@ public class Sample1 {
 编译之后将class打包至sample2.jar
 
 当前路径
+
 ```plain
 -rw-r--r--@ 1 daijiajia  staff   309B 12 26 15:56 JavaClassLoader.md
 -rw-r--r--  1 daijiajia  staff   2.6K 12 26 17:52 MyClassLoader.class
@@ -317,6 +322,7 @@ Exception in thread "main" java.lang.NoSuchMethodError: Sample1.a()V
 > Sample1在sample1.jar中的定义没有a方法，此时加载顺序先加载sampl1.jar中的Sample1类，sample2.jar中的同名类已经加载过便不再加载
 
 交换java依赖库路径
+
 ```java
 java -classpath .:sample2.jar:sample1.jar MyClassLoader
 sun.misc.Launcher$AppClassLoader@73d16e93
@@ -328,6 +334,7 @@ sun.misc.Launcher$AppClassLoader@73d16e93
 calss Sample1 loade by :sun.misc.Launcher$AppClassLoader@73d16e93
 method a invoked by Sample1
 ```
+
 > 此时得到正确的结果
 
 ### 参考
