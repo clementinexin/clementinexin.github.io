@@ -42,18 +42,23 @@ kramdown生成目录的方式参考[Jekyll 目录树](https://www.zfanw.com/blog
 
 ![image]({{site.url}}/assets/insert-image.png)
 
+### 3.3 样式不生效
+有很多样式的格式比较严格，比如列表*-*后面必须跟空格，而且列表开头必须另起一行，各种标题的开头必须另起一行，多试试就知道了。
 
 ## 四、没有解决的问题
 
 ### 4.1 flowchart的支持
 原本想把所有的元素包括图片都用代码生成，包括流程图、公式、序列图生成SVG嵌入页面，但是涉及到js库安装的问题，实在搞不定，后续再说吧。[flowchart](http://flowchart.js.org/)
 
+### 4.2 不支持checkbox，没法todolist
+尝试了下，似乎不支持todolist，在karmdown中
+
 ## 五、后续
   真tm累啊，还没折腾出啥模样来，
   缺乏的东西还很多，折腾不动了
-  
-- [ ] 添加了对标签的全套支持（原主题不支持 Tags ）
-- [ ] 去掉引起挂起的 Web Font，添加适合中文世界的 font-family
+
+- 添加了对标签的全套支持（原主题不支持 Tags ）
+- 去掉引起挂起的 Web Font，添加适合中文世界的 font-family
 - 大量 CSS 优化：包括适合中文阅读的字号字重改进，移动端交互优化。
 - Font-awesome (iconfont) 使用国内的七牛 CDN
 - 使用 Github Flavored Markdown
