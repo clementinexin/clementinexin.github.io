@@ -3,6 +3,7 @@ layout: post
 title:  "Java类加载器"
 date:   2017-01-01 13:59:44 +0800
 categories: Java
+tags:Java,classloader
 ---
 
 **Java类加载器**是Java应用系统在编译之后的将字节码从磁盘加载到计算机系统内存中的方式，主要的类加载器有以下几种
@@ -107,7 +108,7 @@ categories: Java
 
 ### 2.1. loadClass流程
 
-![image](../_images/classloader.png)
+![image]({{site.url}}/_images/classloader.png)
 
 > 整个流程就是先去检查该类是否已经加载，如果已经加载，那么看是否需要解析，如果没有加载，那么判断父加载器是否不为空，父加载器先去尝试加载，若父加载器为空，那么使用启动类加载器加载，加载完毕，调用findClass查找该二进制名字所对应的类
 
