@@ -126,6 +126,7 @@ sudo /usr/local/bin/ntfs-3g /dev/disk5s1 /Volumes/NTFS -olocal -oallow_other
 The disk contains an unclean file system (0, 1).
 The file system wasn't safely closed on Windows. Fixing.
 ```
+
 ##  四、结果
 
 ![image]({{site.url}}/assets/NTFS-in_Mac.png)
