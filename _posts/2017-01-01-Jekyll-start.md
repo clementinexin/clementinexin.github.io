@@ -74,3 +74,12 @@ kramdown生成目录的方式参考[Jekyll 目录树](https://www.zfanw.com/blog
 - [jekyll themes](https://jekyllthemes.io/)
 
 - [Jekyll&Github Pages博客模板挑选和配置](http://cenalulu.github.io/jekyll/choose-a-template-for-your-blog/#toc3)
+
+- [PlantUML](http://fishedee.com/%E5%89%8D%E7%AB%AF/2016/11/16/plantuml%E7%9A%84%E4%BD%BF%E7%94%A8.html)
+- [](http://zh.mweb.im/mweb-1.4-add-floder-octpress-support.html)
+- [Embed Mermaid Charts in Jekyll without Plugin](http://kkpattern.github.io/2015/05/15/Embed-Chart-in-Jekyll.html)
+- [Jekyll Plugins](https://jekyllrb.com/docs/plugins/)
+- [](http://blog.51buck.com/posts/2015-02-19-markdown.html)
+- [](http://chumper.github.io/2016/01/04/blog-setup.html)
+- [](https://github.com/bqxu/bqxu.github.io.git)
+- [](https://www.smslit.top/2016/12/17/testFlowChart/)

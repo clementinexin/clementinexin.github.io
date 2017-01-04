@@ -1,4 +1,13 @@
-
+---
+layout: post
+title:  "SpringBoot and SpringCloud"
+date: 2017-01-01
+categories: Java,Middleware
+tags: Java,SpringBoot,SpringCloud,Middleware
+published: false
+---
+* 目录
+{:toc}
 
 - [](http://blog.didispace.com/categories/Spring-Cloud/)
 - [CacheCloud](https://cachecloud.github.io/2016/11/03/Redis%20Cluster%E5%A4%9A%E6%9C%BA%E6%88%BF%E9%AB%98%E5%8F%AF%E7%94%A8%E5%AE%9E%E7%8E%B0/)
@@ -12,3 +21,5 @@
 - [Building Microservices with Spring Cloud and Docker](http://www.kennybastani.com/2015/07/spring-cloud-docker-microservices.html?mkt_tok=3RkMMJWWfF9wsRonuqTMZKXonjHpfsX57ukoWaC0lMI%2F0ER3fOvrPUfGjI4ATcdqI%2BSLDwEYGJlv6SgFQ7LMMaZq1rgMXBk%3D)
 - [Spring基础：快速入门spring cloud（1）：Spring Cloud介绍](http://blog.csdn.net/liumiaocn/article/details/53868315)
 - [Series - 迁移至云架构](http://nielinjie.github.io/blog/2015/06/07/cloud6/)
+
+- [一句话概括下spring框架及spring cloud框架主要组件](http://www.cnblogs.com/skyblog/p/5073843.html)

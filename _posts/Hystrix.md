@@ -58,6 +58,17 @@ http://localhost:9090/quote_rt/health
 }
 ```
 
+## SpringBoot整合
+
+- [The Netflix stack, using Spring Boot - Part 1: Eureka](https://blog.de-swaef.eu/the-netflix-stack-using-spring-boot/)
+- [The Netflix stack, using Spring Boot - Part 2: Hystrix](https://blog.de-swaef.eu/the-netflix-stack-using-spring-boot-part-2-hystrix/)
+- [The Netflix stack, using Spring Boot - Part 3: Feign](https://blog.de-swaef.eu/the-netflix-stack-using-spring-boot-part-3-feign/)
+
+## Hystrix监控
+
+- [](https://eacdy.gitbooks.io/spring-cloud-book/content/2%20Spring%20Cloud/2.4.1%20Hystrix.html)
+- [](https://eacdy.gitbooks.io/spring-cloud-book/content/2%20Spring%20Cloud/2.4.2%20Hystrix%20Dashboard.html)
+- [](https://eacdy.gitbooks.io/spring-cloud-book/content/2%20Spring%20Cloud/2.4.3%20Turbine.html)
 
 **what**
 - 是什么
