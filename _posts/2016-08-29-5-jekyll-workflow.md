@@ -2,6 +2,7 @@
 layout: post
 title: 使用 flowchart.js 支持 markdown 流程图
 tags: jekyll
+published: false
 ---
 
 # markdown 流程图
@@ -39,3 +40,20 @@ cond(yes, right)->sub3->op3->op4->e
 cond(no)->sub4->op1->op2->sub5(left)->sub1
 
 ```
+
+<script src="{{site.url}}/assets/webfont.js"></script>
+<script src="{{site.url}}/assets/snap.svg-min.js" ></script>
+<script src="{{site.url}}/assets/underscore-min.js" ></script>
+<script src="{{site.url}}/assets/sequence-diagram-min.js" ></script>
+<script src="{{site.url}}/assets/jquery-3.1.1.min.js"></script>
+
+<div id="diagram"></div>
+<script>
+  var diagram = Diagram.parse("A->B: Message");
+  diagram.drawSVG("diagram", {theme: 'hand'});
+</script>
+
+<div class="diagram">A->B: Message</div>
+<script>
+$(".diagram").sequenceDiagram({theme: 'hand'});
+</script>

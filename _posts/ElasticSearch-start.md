@@ -722,3 +722,285 @@ DFS_QUERY_AND_FETCH((byte) 2),
  */
 QUERY_AND_FETCH((byte) 3);
 ```
+
+## 禁用source
+
+```plain
+GET /realtime/quote/_mapping
+```
+
+```json
+{
+  "realtime": {
+    "mappings": {
+      "quote": {
+        "properties": {
+          "carrier": {
+            "type": "keyword"
+          },
+          "date": {
+            "type": "date"
+          },
+          "discount": {
+            "type": "long"
+          },
+          "dst": {
+            "type": "keyword"
+          },
+          "flightno": {
+            "type": "keyword"
+          },
+          "org": {
+            "type": "keyword"
+          },
+          "price": {
+            "type": "long"
+          },
+          "quoteChannel": {
+            "type": "text",
+            "fields": {
+              "keyword": {
+                "type": "keyword",
+                "ignore_above": 256
+              }
+            }
+          },
+          "siteno": {
+            "type": "text",
+            "fields": {
+              "keyword": {
+                "type": "keyword",
+                "ignore_above": 256
+              }
+            }
+          },
+          "timestamp": {
+            "type": "long"
+          }
+        }
+      }
+    }
+  }
+}
+```
+
+```json
+curl -XPUT 'localhost:9200/low?pretty' -d '{
+    "mappings": {
+      "quote": {
+        "_source":{
+          "enabled":false
+        },
+        "properties": {
+          "carrier": {
+            "type": "keyword"
+          },
+          "date": {
+            "type": "date",
+            "store": "yes"
+          },
+          "discount": {
+            "type": "long"
+          },
+          "dst": {
+            "type": "keyword"
+          },
+          "flightno": {
+            "type": "keyword"
+          },
+          "org": {
+            "type": "keyword"
+          },
+          "price": {
+            "type": "long"
+          },
+          "quoteChannel": {
+            "type": "keyword"
+          },
+          "siteno": {
+            "type": "keyword"
+          },
+          "timestamp": {
+            "type": "long"
+          }
+        }
+      }
+    }
+  }'
+{
+  "acknowledged" : true,
+  "shards_acknowledged" : true
+}
+```
+
+```json
+curl -XPOST 'localhost:9200/low/quote?pretty' -d '{
+          "org": "PEK",
+          "dst": "NKG",
+          "date": "2017-02-07",
+          "discount": 10,
+          "price": 200,
+          "siteno": "715",
+          "flightno": "MU2852",
+          "carrier": "MU",
+          "timestamp": 1483498141,
+          "quoteChannel": "MT"
+        }'
+```
+
+```json
+curl -XPOST 'localhost:9200/hq/quote?pretty' -d '{
+          "org": "PEK",
+          "dst": "TAO",
+          "date": "2017-01-31",
+          "discount": 14,
+          "price": 189,
+          "siteno": "555",
+          "flightno": "SC4660",
+          "carrier": "SC",
+          "timestamp": 1483508132,
+          "quoteChannel": "MT"
+        }'
+```
+
+
+```json
+curl -XGET 'localhost:9200/hq/quote/_search?pretty' -d '
+{
+  "from" : 0,
+  "size" : 500,
+  "_fields":["date","org","dst"],
+  "query" : {
+    "bool" : {
+      "must" : [
+        {
+          "terms" : {
+            "org" : [
+              "PEK",
+              "NAY"
+            ],
+            "boost" : 1.0
+          }
+        },
+        {
+          "terms" : {
+            "dst" : [
+              "PVG",
+              "TAO",
+              "KMG",
+              "CTU",
+              "TNA",
+              "URC",
+              "NAY",
+              "HGH",
+              "XIY",
+              "CSX",
+              "CGO",
+              "WUH",
+              "NKG",
+              "SHA",
+              "TSN",
+              "SZX",
+              "CAN",
+              "SYX",
+              "HAK",
+              "PEK",
+              "XMN",
+              "CKG"
+            ],
+            "boost" : 1.0
+          }
+        },
+        {
+          "range" : {
+            "date" : {
+              "from" : "2017-01-02",
+              "to" : "2017-05-02",
+              "include_lower" : true,
+              "include_upper" : true,
+              "boost" : 1.0
+            }
+          }
+        },
+        {
+          "range" : {
+            "discount" : {
+              "from" : null,
+              "to" : 70,
+              "include_lower" : true,
+              "include_upper" : true,
+              "boost" : 1.0
+            }
+          }
+        }
+      ],
+      "disable_coord" : false,
+      "adjust_pure_negative" : true,
+      "boost" : 1.0
+    }
+  },
+  "explain" : false,
+  "sort" : [
+    {
+      "discount" : {
+        "order" : "asc",
+        "unmapped_type" : "long"
+      }
+    }
+  ],
+  "ext" : { }
+}'
+```
+
+```json
+curl -XPUT 'localhost:9200/corp?pretty' -d '{
+    "mappings": {
+      "emp": {
+        "_source":{
+          "enabled":false
+        },
+        "properties": {
+        "name" : {
+            "type" : "text",
+            "fields" : {
+              "keyword" : {
+                "type" : "keyword",
+                "ignore_above" : 256
+              }
+            }
+          }
+        }
+      }
+    }
+  }'
+```
+
+```json
+curl -XPOST 'localhost:9200/corp/emp?pretty' -d '{
+  "name":"John"
+  }'
+```
+
+```json
+curl -XGET 'localhost:9200/corp/emp/_search?pretty' -d '{
+  "docvalue_fields": ["name"],
+  "query" : {
+    "bool" : {
+      "must" : [
+        {
+          "term" : {
+            "name" :
+              "John"
+          }
+        }
+      ]
+    }
+  }
+}'
+```
+
+```json
+curl -XGET 'localhost:9200/corp/emp/_search?pretty' -d '{
+  "docvalue_fields": ["name"]
+}'
+```
