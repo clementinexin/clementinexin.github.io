@@ -20,7 +20,7 @@ Swap:         4094          0       4094
 ```
 
 free指令结果解释
-![](/{{site.url}}/assets/2017/02/free_command.jpg)
+![](/{{site.url}}/assets/2017/01/free_command.jpg)
 
 ### jmap查看系统Java进程内存占用情况
 
@@ -104,12 +104,16 @@ FGCT	Full garbage collection time.
 GCT	Total garbage collection time.
 ```
 
+![](/{{site.url}}/assets/2017/01/ES-mem.png)
+
 ### 查看系统缓存占用大小
 
 ```bash
 cat /proc/slabinfo |awk '{if($3*$4/1024/1024 > 100){print $1,$3*$4/1024/1024} }'
 dentry 3776.57
 ```
+
+![](/{{site.url}}/assets/2017/01/ES-mem-dentry.png)
 
 ```bash
 cat /proc/meminfo
@@ -177,7 +181,7 @@ echo $RSS"KB"
 查询slabinfo大小
 > 简单的说内核为了高性能每个需要重复使用的对象都会有个池，这个slab池会cache大量常用的对象，所以会消耗大量的内存。
 
-![](/{{site.url}}/assets/2017/02/SLABTOP.png)
+![](/{{site.url}}/assets/2017/01/SLABTOP.png)
 
 ```bash
 echo `cat /proc/slabinfo |awk 'BEGIN{sum=0;}{sum=sum+$3*$4;}END{print sum/1024/1024}'` MB
@@ -194,6 +198,8 @@ echo `grep PageTables /proc/meminfo | awk '{print $2}'` KB
 
 
 ### Elasticsearch服务占用内存过大原因分析
+
+![](/{{site.url}}/assets/2017/02/es-stat.png)
 
 ```plain
 8651  stat("/data/elasticsearch/xxx-production-us-west-1/nodes/0/indices/playground_profile/4/index/_jqkw_Lucene41_0.tim", 0x7f0b566eb100) = -1 ENOENT (No such file or directory)

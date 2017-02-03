@@ -119,13 +119,13 @@ vagrant destory
 ```
 
 ## QEMU
-- [installing-qemu-on-mac-os-x-el-capitan](https://theintobooks.wordpress.com/2016/03/03/installing-qemu-on-mac-os-x-el-capitan/)
+> QEMU 本身是一个非常强大的虚拟机，甚至在 Xen、KVM 这些虚拟机产品中都少不了 QEMU 的身影。在 QEMU 的官方文档中也提到，QEMU 可以利用 Xen、KVM 等技术来加速。为什么需要加速呢，那是因为如果单纯使用 QEMU 的时候，它自己模拟出了一个完整的个人电脑，它里面的 CPU 啊什么的都是模拟出来的，它甚至可以模拟不同架构的 CPU，比如说在使用 Intel X86 的 CPU 的电脑中模拟出一个 ARM 的电脑或 MIPS 的电脑，这样模拟出的 CPU 的运行速度肯定赶不上物理 CPU。使用加速以后呢，可以把客户操作系统的 CPU 指令直接转发到物理 CPU，自然运行效率大增。
+
+　　QEMU 同时也是一个非常简单的虚拟机，给它一个硬盘镜像就可以启动一个虚拟机，如果想定制这个虚拟机的配置，比如用什么样的 CPU 啊、什么样的显卡啊、什么样的网络配置啊，指定相应的命令行参数就可以了。它支持许多格式的磁盘镜像，包括 VirtualBox 创建的磁盘镜像文件。它同时也提供一个创建和管理磁盘镜像的工具 qemu-img。QEMU 及其工具所使用的命令行参数，直接查看其文档即可。
 
 ### Ubuntu16 安装QEMU
 ```plain
 sudo apt install aptitude
-
-
 sudo dpkg -L  qemu-system-x86
 ```
 - [包管理系统指南](http://wiki.ubuntu.org.cn/%E5%8C%85%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F%E6%8C%87%E5%8D%97)
@@ -145,6 +145,8 @@ drwx------ 19 root root      4096 1月  22 18:21 ../
 -rw-r--r--  1 root root    393216 1月  23 10:45 WinXP.img
 -rwxrwx---  1 root root 630237184 1月  23 10:00 zh-hans_windows_xp_professional_with_service_pack_3_x86_cd_vl_x14-74070.iso*
 ```
+最终启动的结果可以如图所示：
+![](/{{site.url}}/assets/2017/02/Qemu-start-XP.png)
 
 ### VirtualBox 虚拟机磁盘调整
 
@@ -204,6 +206,14 @@ VBoxManage modifyhd 24fb472d-11a0-4c0e-81e5-7c92fa283ee1 --resize 16384
 - [Virtualbox虚拟硬盘根分区大小调整](http://aaronmoment.cn/partition/)
 
 ## KVM
+
+QEMU 是一个强大的虚拟机软件，它可以完全以软件的形式模拟出一台完整的电脑所需的所有硬件，甚至是模拟出不同架构的硬件，在这些虚拟的硬件之上，可以安装完整的操作系统。QEMU 的运行模式如下图：
+![](/{{site.url}}/assets/2017/02/qemu_without_kvm.png)
+
+很显然，这种完全以软件模拟硬件的形式虽然功能强大，但是性能难以满足用户的需要。模拟出的硬件的性能和物理硬件的性能相比，必然会大打折扣。为了提高虚拟机软件的性能，开发者们各显神通。其中，最常用的办法就是在主操作系统中通过内核模块开一个洞，通过这个洞将虚拟机中的操作直接映射到物理硬件上，从而提高虚拟机中运行的操作系统的性能。如下图：
+![](/{{site.url}}/assets/2017/02/qemu_with_kvm.png)
+
+> 其中 KVM 就是这种加速模式的典型代表。在社区中，大家常把 KVM 和 Xen 相提并论，但是它们其实完全不一样。从上图可以看出，使用内核模块加速这种模式，主操作系统仍然占主导地位，内核模块只是在主操作系统中开一个洞，用来连接虚拟机和物理硬件，给虚拟机加速，但是虚拟机中的客户操作系统仍然受到很大的限制。这种模式比较适合桌面用户使用，主操作系统仍然是他们的主战场，不管是办公还是打游戏，都通过主操作系统完成，客户操作系统只是按需使用。至于 Xen，则完全使用不同的理念，比较适合企业级用户使用
 
 ### Ubuntu16 安装KVM
 ```plain
@@ -297,14 +307,30 @@ irqbypass              16384  1 kvm
 
 
 ### 安装和使用virt-manager
+如果用 ps -ef | grep qemu 命令查看一下，发现 kvm 命令运行的还是 qemu-system-x86_64 程序，只不过加上了 -enable-kvm 参数
+
+另外，对于桌面用户来说，有一个好用的图形化界面也是很重要的。虽然 QEMU 和 KVM 自身不带图形界面的虚拟机管理器，但是我们可以使用第 3 方软件，比如 virt-manager。只需要使用 sudo apt-get install virt-manager 即可安装该软件。该软件依赖于 libvirt，在安装过程中也会自动安装。运行 virt-manager 的效果如下图，注意必须使用 sudo 运行，因为该软件需要超级用户权限。
+![](/{{site.url}}/assets/2017/02/VirtualBox_Ubuntu16_virtmanger.png)
 
 -[虚拟机体验之 KVM 篇](http://www.cnblogs.com/youxia/p/linux020.html)
 
 ## XEN
 - [虚拟机体验之 Xen 篇 —— 令人脑洞大开的奇异架构](http://www.cnblogs.com/youxia/p/linux022.html)
 
+比如说在经典的虚拟机架构中，虚拟机软件运行于 Host System 之中，而 Guest System 运行于虚拟机软件之中。为了提高 Guest System 的运行速度，虚拟机软件一般会在 Host System 中使用内核模块开一个洞，将 Guest System 的运行指令直接映射到物理硬件上。但是在 Xen 中，则根本没有 Host System 的概念，传说它所有的虚拟机都直接运行于硬件之上，虚拟机运行的效率非常的高，虚拟机之间的隔离性非常的好。
 
-Mac VirtualBox Ubuntu 文件夹共享
+　　当然，传说只是传说。我刚开始也是很纳闷，怎么可能让所有的虚拟机都直接运行于硬件之上。后来我终于知道，这只是一个噱头。虚拟机和硬件之间，还是有一个管理层的，那就是 Xen Hypervisor。当然 Xen Hypervisor 的功能毕竟是有限的，怎么样它也比不上一个操作系统，因此，在 Xen Hypervisor 上运行的虚拟机中，有一个虚拟机是具有特权的，它称之为 Domain 0，而其它的虚拟机都称之为 Domain U。
+
+　　Xen的架构如下图：
+![](/{{site.url}}/assets/2017/02/xen.png)
+
+从图中可以看出，Xen 虚拟机架构中没有 Host System，在硬件层之上是薄薄的一层 Xen Hypervisor，在这之上就是各个虚拟机了，没有 Host System，只有 Domain 0，而 Guest System 都是 Domain U，不管是 Domain 0 还是 Domain U，都是虚拟机，都是被虚拟机软件管理的对象。
+
+　　既然 Domain 0 也是一个虚拟机，也是被管理的对象，所以可以给它分配很少的资源，然后将其余的资源公平地分配到其它的 Domain。但是很奇怪的是，所有的虚拟机管理软件其实都是运行在这个 Domain 0 中的。同时，如果要连接到其它 Guest System 的控制台，而又不是使用远程桌面（VNC）的话，这些控制台也是显示在 Domian 0 中的。所以说，这是一个奇异的架构，是一个让人很不容易理解的架构。
+
+　　这种架构桌面用户不喜欢，因为 Host System 变成了 Domain 0，本来应该掌控所有资源的主操作系统变成了一个受管理的虚拟机，本来用来打游戏、编程、聊天的主战场受到限制了，可能不能完全发挥硬件的性能了，还有可能运行不稳定了，自然会心里不爽。（Domain 0确实不能安装专用显卡驱动，确实会运行不稳定，这个后面会讲。）但是企业级用户喜欢，因为所有的 Domain 都是虚拟机，所以可以更加公平地分配资源，而且由于 Domain U 不再是运行于 Domian 0 里面的软件，而是和 Domain 0 平级的系统，这样即使 Domain 0 崩溃了，也不会影响到正在运行的 Domain U。
+
+### Mac VirtualBox Ubuntu 文件夹共享
 
 - [mac Virtualbox Ubuntu 设置共享目录](http://www.cnblogs.com/200911/p/4947207.html)
 
@@ -317,9 +343,6 @@ sudo passwd root
 
 Ubuntu16.10 启用root账户登陆
 - [ubuntu 16.04启用root用户方法](http://www.linuxdiyf.com/linux/22630.html)
-
-
-- [虚拟机比较](http://wiki.osdev.org/Emulator_Comparison)
 
 
 ## bochs
@@ -504,7 +527,13 @@ boot: disk
 
 ```
 
+![](/{{site.url}}/assets/2017/02/VirtualBox_Ubuntu16_xp_start.png)
+
 ## 参考
+
+- [installing-qemu-on-mac-os-x-el-capitan](https://theintobooks.wordpress.com/2016/03/03/installing-qemu-on-mac-os-x-el-capitan/)
+- [虚拟机比较](http://wiki.osdev.org/Emulator_Comparison)
+
 
 ### 搭建集群
 - [3 Vgrant使用入门](https://github.com/astaxie/go-best-practice/blob/master/ebook/zh/01.3.md)

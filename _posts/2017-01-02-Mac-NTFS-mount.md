@@ -129,7 +129,7 @@ The file system wasn't safely closed on Windows. Fixing.
 
 ##  四、结果
 
-![image]({{site.url}}/assets/NTFS-in_Mac.png)
+![image]({{site.url}}/assets/2017/01/NTFS-in_Mac.png)
 
 ## 五、参考
 

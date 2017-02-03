@@ -40,7 +40,7 @@ kramdown生成目录的方式参考[Jekyll 目录树](https://www.zfanw.com/blog
 ### 3.2 嵌入图片
 插入图片的链接可以用Atom的插件生成，对话框中定位到具体的图片之后即可在光标所在位置插入图片的引用，但是有个问题，图片在本地可以引用相对路径，但是在服务器上只能从site.url下面的assets目录引用，注意名字也不能改变，原来尝试用images目录尝试怎么都不行，参考[撰写博客](http://jekyllcn.com/docs/posts/)
 
-![image]({{site.url}}/assets/insert-image.png)
+![image]({{site.url}}/assets/2017/01/insert-image.png)
 
 ### 3.3 样式不生效
 有很多样式的格式比较严格，比如列表*-*后面必须跟空格，而且列表开头必须另起一行，各种标题的开头必须另起一行，多试试就知道了。

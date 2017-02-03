@@ -139,7 +139,7 @@ public class Swagger2Config extends WebMvcConfigurationSupport {
 
 ## 效果
 
-![]({{site.url}}}}/assets/Swagger2.png)
+![]({{site.url}}}}/assets/2017/01/Swagger2.png)
 
 ## 参考
 - [springfox](https://springfox.github.io/springfox/docs/current/)
