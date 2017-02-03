@@ -1,6 +1,3 @@
-
-
-
 ---
 layout: post
 title:  "虚拟机 - Vagrant、Qemu、KVM、XEN"
@@ -12,10 +9,10 @@ published: true
 * 目录
 {:toc}
 
-## Vargrant上手
+## 一、Vargrant上手
 
 
-### 启动Vargrant遇到的问题
+### 1.启动Vargrant遇到的问题
 
 ```plain
 Vagrant was unable to mount VirtualBox shared folders. This is usually
@@ -65,7 +62,7 @@ vagrant@vagrant-ubuntu-trusty:~$
 ```
 
 
-### 启动Windows镜像遇到的问题
+### 2.启动Windows镜像遇到的问题
 
 ```plain
 The "metadata.json" file for the box 'XP' was not found.
@@ -89,7 +86,7 @@ vagrant box add XP IE8\ -\ WinXP.box
 ==> box: Successfully added box 'XP' (v0) for 'virtualbox'!
 ```
 
-## Vagrant command
+### 3.Vagrant command
 
 ```plain
 
@@ -118,19 +115,19 @@ vagrant destory
 
 ```
 
-## QEMU
+## 二、QEMU
 > QEMU 本身是一个非常强大的虚拟机，甚至在 Xen、KVM 这些虚拟机产品中都少不了 QEMU 的身影。在 QEMU 的官方文档中也提到，QEMU 可以利用 Xen、KVM 等技术来加速。为什么需要加速呢，那是因为如果单纯使用 QEMU 的时候，它自己模拟出了一个完整的个人电脑，它里面的 CPU 啊什么的都是模拟出来的，它甚至可以模拟不同架构的 CPU，比如说在使用 Intel X86 的 CPU 的电脑中模拟出一个 ARM 的电脑或 MIPS 的电脑，这样模拟出的 CPU 的运行速度肯定赶不上物理 CPU。使用加速以后呢，可以把客户操作系统的 CPU 指令直接转发到物理 CPU，自然运行效率大增。
 
-　　QEMU 同时也是一个非常简单的虚拟机，给它一个硬盘镜像就可以启动一个虚拟机，如果想定制这个虚拟机的配置，比如用什么样的 CPU 啊、什么样的显卡啊、什么样的网络配置啊，指定相应的命令行参数就可以了。它支持许多格式的磁盘镜像，包括 VirtualBox 创建的磁盘镜像文件。它同时也提供一个创建和管理磁盘镜像的工具 qemu-img。QEMU 及其工具所使用的命令行参数，直接查看其文档即可。
+QEMU 同时也是一个非常简单的虚拟机，给它一个硬盘镜像就可以启动一个虚拟机，如果想定制这个虚拟机的配置，比如用什么样的 CPU 啊、什么样的显卡啊、什么样的网络配置啊，指定相应的命令行参数就可以了。它支持许多格式的磁盘镜像，包括 VirtualBox 创建的磁盘镜像文件。它同时也提供一个创建和管理磁盘镜像的工具 qemu-img。QEMU 及其工具所使用的命令行参数，直接查看其文档即可。
 
-### Ubuntu16 安装QEMU
+### 1.Ubuntu16 安装QEMU
 ```plain
 sudo apt install aptitude
 sudo dpkg -L  qemu-system-x86
 ```
 - [包管理系统指南](http://wiki.ubuntu.org.cn/%E5%8C%85%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F%E6%8C%87%E5%8D%97)
 
-### 创建镜像并加载
+### 2.创建镜像并加载
 ```plain
 # qemu-img create -f qcow2 WinXP.img 10G
 Formatting 'WinXP.img', fmt=qcow2 size=10737418240 encryption=off cluster_size=65536 lazy_refcounts=off refcount_bits=16
@@ -146,13 +143,13 @@ drwx------ 19 root root      4096 1月  22 18:21 ../
 -rwxrwx---  1 root root 630237184 1月  23 10:00 zh-hans_windows_xp_professional_with_service_pack_3_x86_cd_vl_x14-74070.iso*
 ```
 最终启动的结果可以如图所示：
-![](/{{site.url}}/assets/2017/02/Qemu-start-XP.png)
+![image](/{{site.url}}/assets/2017/02/Qemu-start-XP.png)
 
-### VirtualBox 虚拟机磁盘调整
+### 3.VirtualBox 虚拟机磁盘调整
 
-1.VBoxManage list hdds
+#### 1.VBoxManage list hdds
 
-2.VBoxManage modifyhd uuid --resize size命令将其扩容，uuid是上面获得的UUID，size是扩容后的大小。以兆为单位。
+#### 2.VBoxManage modifyhd uuid --resize size命令将其扩容，uuid是上面获得的UUID，size是扩容后的大小。以兆为单位。
 
 
 ```plain
@@ -197,25 +194,25 @@ VBoxManage modifyhd 24fb472d-11a0-4c0e-81e5-7c92fa283ee1 --resize 16384
 0%...10%...20%...30%...40%...50%...60%...70%...80%...90%...100%
 ```
 
-3.gpated重新分区
+#### 3.gpated重新分区
 
-### 启动镜像
+### 4.启动镜像
 ```plain
  qemu-system-i386 -m 1G -smp 2 -vga vmware W98.img
 ```
 - [Virtualbox虚拟硬盘根分区大小调整](http://aaronmoment.cn/partition/)
 
-## KVM
+## 三、KVM
 
 QEMU 是一个强大的虚拟机软件，它可以完全以软件的形式模拟出一台完整的电脑所需的所有硬件，甚至是模拟出不同架构的硬件，在这些虚拟的硬件之上，可以安装完整的操作系统。QEMU 的运行模式如下图：
-![](/{{site.url}}/assets/2017/02/qemu_without_kvm.png)
+![image](/{{site.url}}/assets/2017/02/qemu_without_kvm.png)
 
 很显然，这种完全以软件模拟硬件的形式虽然功能强大，但是性能难以满足用户的需要。模拟出的硬件的性能和物理硬件的性能相比，必然会大打折扣。为了提高虚拟机软件的性能，开发者们各显神通。其中，最常用的办法就是在主操作系统中通过内核模块开一个洞，通过这个洞将虚拟机中的操作直接映射到物理硬件上，从而提高虚拟机中运行的操作系统的性能。如下图：
-![](/{{site.url}}/assets/2017/02/qemu_with_kvm.png)
+![image](/{{site.url}}/assets/2017/02/qemu_with_kvm.png)
 
 > 其中 KVM 就是这种加速模式的典型代表。在社区中，大家常把 KVM 和 Xen 相提并论，但是它们其实完全不一样。从上图可以看出，使用内核模块加速这种模式，主操作系统仍然占主导地位，内核模块只是在主操作系统中开一个洞，用来连接虚拟机和物理硬件，给虚拟机加速，但是虚拟机中的客户操作系统仍然受到很大的限制。这种模式比较适合桌面用户使用，主操作系统仍然是他们的主战场，不管是办公还是打游戏，都通过主操作系统完成，客户操作系统只是按需使用。至于 Xen，则完全使用不同的理念，比较适合企业级用户使用
 
-### Ubuntu16 安装KVM
+### 1.Ubuntu16 安装KVM
 ```plain
 # sudo aptitude install kvm
 
@@ -227,11 +224,11 @@ failed to initialize KVM: No such file or directory
 
 ```
 
-### KVM在虚拟机中启用的问题
+### 2.KVM在虚拟机中启用的问题
 [How to fix error ‘Could not access KVM kernel module’ in Proxmox, Virtualizor, SolusVM, Redhat, CentOS and Ubuntu
 ](https://bobcares.com/blog/how-to-fix-error-could-not-access-kvm-kernel-module/)
 
-1.lscpu
+#### 1.lscpu
 
 ```plain
 # lscpu
@@ -263,7 +260,7 @@ Flags:                 fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca 
 
 ```
 
-2.modprob kvm
+#### 2.modprob kvm
 
 ```plain
 root@dj-VirtualBox:~/os# modprobe kvm
@@ -286,7 +283,7 @@ irqbypass              16384  1 kvm
 
 ```
 
-3.dmesg
+#### 3.dmesg
 
 ```plain
 [ 1440.925082] Out of memory: Kill process 8697 (qemu-system-x86) score 559 or sacrifice child
@@ -306,15 +303,15 @@ irqbypass              16384  1 kvm
 > 结论：在宿主机上安装的的虚拟软件中的虚拟机不支持KVM加速
 
 
-### 安装和使用virt-manager
+### 3.安装和使用virt-manager
 如果用 ps -ef | grep qemu 命令查看一下，发现 kvm 命令运行的还是 qemu-system-x86_64 程序，只不过加上了 -enable-kvm 参数
 
 另外，对于桌面用户来说，有一个好用的图形化界面也是很重要的。虽然 QEMU 和 KVM 自身不带图形界面的虚拟机管理器，但是我们可以使用第 3 方软件，比如 virt-manager。只需要使用 sudo apt-get install virt-manager 即可安装该软件。该软件依赖于 libvirt，在安装过程中也会自动安装。运行 virt-manager 的效果如下图，注意必须使用 sudo 运行，因为该软件需要超级用户权限。
-![](/{{site.url}}/assets/2017/02/VirtualBox_Ubuntu16_virtmanger.png)
+![image](/{{site.url}}/assets/2017/02/VirtualBox_Ubuntu16_virtmanger.png)
 
--[虚拟机体验之 KVM 篇](http://www.cnblogs.com/youxia/p/linux020.html)
+- [虚拟机体验之 KVM 篇](http://www.cnblogs.com/youxia/p/linux020.html)
 
-## XEN
+## 四、XEN
 - [虚拟机体验之 Xen 篇 —— 令人脑洞大开的奇异架构](http://www.cnblogs.com/youxia/p/linux022.html)
 
 比如说在经典的虚拟机架构中，虚拟机软件运行于 Host System 之中，而 Guest System 运行于虚拟机软件之中。为了提高 Guest System 的运行速度，虚拟机软件一般会在 Host System 中使用内核模块开一个洞，将 Guest System 的运行指令直接映射到物理硬件上。但是在 Xen 中，则根本没有 Host System 的概念，传说它所有的虚拟机都直接运行于硬件之上，虚拟机运行的效率非常的高，虚拟机之间的隔离性非常的好。
@@ -322,7 +319,7 @@ irqbypass              16384  1 kvm
 　　当然，传说只是传说。我刚开始也是很纳闷，怎么可能让所有的虚拟机都直接运行于硬件之上。后来我终于知道，这只是一个噱头。虚拟机和硬件之间，还是有一个管理层的，那就是 Xen Hypervisor。当然 Xen Hypervisor 的功能毕竟是有限的，怎么样它也比不上一个操作系统，因此，在 Xen Hypervisor 上运行的虚拟机中，有一个虚拟机是具有特权的，它称之为 Domain 0，而其它的虚拟机都称之为 Domain U。
 
 　　Xen的架构如下图：
-![](/{{site.url}}/assets/2017/02/xen.png)
+![image](/{{site.url}}/assets/2017/02/xen.png)
 
 从图中可以看出，Xen 虚拟机架构中没有 Host System，在硬件层之上是薄薄的一层 Xen Hypervisor，在这之上就是各个虚拟机了，没有 Host System，只有 Domain 0，而 Guest System 都是 Domain U，不管是 Domain 0 还是 Domain U，都是虚拟机，都是被虚拟机软件管理的对象。
 
@@ -345,19 +342,22 @@ Ubuntu16.10 启用root账户登陆
 - [ubuntu 16.04启用root用户方法](http://www.linuxdiyf.com/linux/22630.html)
 
 
-## bochs
+## 五、bochs
 
 操作系统Ubuntu16.04
 源码 Bochs 2.6.8
 
-[Ubuntu下安装DOS环境与安装配置Bochs](http://codingstory.com.cn/ubuntuxia-an-zhuang-doshuan-jing-yu-an-zhuang-pei-zhi-bochs/)
-### 安装前准备
+- [Ubuntu下安装DOS环境与安装配置Bochs](http://codingstory.com.cn/ubuntuxia-an-zhuang-doshuan-jing-yu-an-zhuang-pei-zhi-bochs/)
+
+### 1.安装前准备
+
 ```plain
  sudo apt-get install libx11-dev
  sudo apt-get install libxkbcommon-x11-dev
  sudo apt-get install libghc-x11-dev
 ```
-### 安装步骤
+
+### 2.安装步骤
 
 ```plian
 ./configure --enable-debugger --enable-disasm
@@ -365,7 +365,7 @@ make
 make install
 ```
 
-### make遇到的问题
+### 3.make遇到的问题
 
 ```plain
 x.cc:42:35: fatal error: X11/extensions/Xrandr.h: 没有那个文件或目录
@@ -395,7 +395,7 @@ install -m 644 ./.bochsrc /usr/local/share/doc/bochs/bochsrc-sample.txt
 
 
 ```
-### 启动bochs遇到的问题
+### 4.启动bochs遇到的问题
 
 ```plain
 bochs
@@ -509,7 +509,7 @@ Please choose one: [6] 7
 ```
 
 
-### XP镜像启动配置文件 bochs.xp
+### 5.XP镜像启动配置文件 bochs.xp
 
 ```plain
 # bochsrc
@@ -527,7 +527,7 @@ boot: disk
 
 ```
 
-![](/{{site.url}}/assets/2017/02/VirtualBox_Ubuntu16_xp_start.png)
+![image](/{{site.url}}/assets/2017/02/VirtualBox_Ubuntu16_xp_start.png)
 
 ## 参考
 

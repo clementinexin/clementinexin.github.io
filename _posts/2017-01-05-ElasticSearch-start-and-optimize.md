@@ -742,7 +742,7 @@ Query toQuery(QueryShardContext context) throws IOException;
 Query toFilter(QueryShardContext context) throws IOException;
 ```
 
-## 指定SearchType
+## 5.指定SearchType
 
 SearchType的枚举类型及其用法，Default就是QUERY_THEN_FETCH
 
@@ -772,7 +772,7 @@ DFS_QUERY_AND_FETCH((byte) 2),
 QUERY_AND_FETCH((byte) 3);
 ```
 
-## 5.禁用source，用FiledData获取想要的字段
+## 6.禁用source，用FiledData获取想要的字段
 
 查看类型的映射，默认是带有source的
 
@@ -1154,7 +1154,7 @@ curl -XGET 'localhost:9200/corp/_mapping?pretty'
 
 
 
-## 6.文档较少时更新主分片为1
+## 7.文档较少时更新主分片为1
 
 更新索引的shards
 
@@ -1250,7 +1250,7 @@ curl -XPUT '10.32.214.197:8410/hq/_settings' -d '{
 
 重启服务器时可能报如下错误，可设置副本shard为0，待集群健康状况恢复，再更新副本shard数量即可
 
-```java
+```plain
 Caused by: org.elasticsearch.transport.RemoteTransportException: [node-3][10.32.213.195:8411][internal:index/shard/recovery/start_recovery]
 Caused by: org.elasticsearch.index.engine.RecoveryEngineException: Phase[1] phase1 failed
         at org.elasticsearch.indices.recovery.RecoverySourceHandler.recoverToTarget(RecoverySourceHandler.java:140) ~[elasticsearch-5.0.2.jar:5.0.2]
@@ -1296,8 +1296,8 @@ Caused by: java.lang.IllegalStateException: try to recover [hq][1] from primary 
 ```
 
 参考
-[Github 解决办法](https://github.com/elastic/elasticsearch/issues/12661)
-[indices-update-settings](https://www.elastic.co/guide/en/elasticsearch/reference/current/indices-update-settings.html)
+- [Github 解决办法](https://github.com/elastic/elasticsearch/issues/12661)
+- [indices-update-settings](https://www.elastic.co/guide/en/elasticsearch/reference/current/indices-update-settings.html)
 
 
 
@@ -1312,6 +1312,7 @@ Caused by: java.lang.IllegalStateException: try to recover [hq][1] from primary 
 ## 3.在线更新索引
 
 现有索引
+
 ```json
 {
   "flight": {

@@ -1,4 +1,3 @@
-
 ---
 layout: post
 title:  "Java 编码实践-不定期更新"
@@ -16,7 +15,9 @@ published: true
 ## 案例：多重排序
 
 > 实现起来又臭又长的代码自然正确性也得不到保证
-按照多个属性进行排序，即先分组再组内排序
+
+### 按照多个属性进行排序，即先分组再组内排序
+
 ```java
 priceDataList = priceDataList
         .stream()
@@ -28,7 +29,9 @@ priceDataList = priceDataList
             .flatMap(Function.identity())
         .collect(Collectors.toList());
 ```
-comparator实现多个比较器
+
+### comparator实现多个比较器
+
 ```java
 priceDataList = priceDataList
         .stream()

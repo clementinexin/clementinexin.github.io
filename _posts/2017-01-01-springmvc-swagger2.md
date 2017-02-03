@@ -9,16 +9,16 @@ published: true
 * 目录
 {:toc}
 
-## 引入依赖
+## 一、引入依赖
 
-### for Gradle
+### 1.for Gradle
 
 ```gradle
 compile "io.springfox:springfox-swagger2:2.6.1"
 compile 'io.springfox:springfox-swagger-ui:2.6.1'
 ```
 
-### for Maven
+### 2.for Maven
 
 ```xml
 <dependency>
@@ -34,7 +34,7 @@ compile 'io.springfox:springfox-swagger-ui:2.6.1'
 </dependency>
 ```
 
-## SpringMvc 配置
+## 二、SpringMvc 配置
 
 ```xml
 
@@ -70,7 +70,7 @@ container or because it has been manually configured, the servlet name must be s
 </xsd:element>
 ```
 
-## 启用Swagger2
+## 三、启用Swagger2
 
 ```java
 import org.springframework.context.annotation.Bean;
@@ -118,7 +118,7 @@ public class Swagger2Config extends WebMvcConfigurationSupport {
 }
 ```
 
-## 添加接口说明
+## 四、添加接口说明
 
 ```java
 @ApiOperation(value = "平台异地接口", notes = "请求参数中的城市名已经URDEncode")
@@ -137,9 +137,9 @@ public class Swagger2Config extends WebMvcConfigurationSupport {
 @ResponseBody
 ```
 
-## 效果
+## 五、效果
 
-![]({{site.url}}}}/assets/2017/01/Swagger2.png)
+![image]({{site.url}}/assets/2017/01/Swagger2.png)
 
-## 参考
+## 六、参考
 - [springfox](https://springfox.github.io/springfox/docs/current/)
