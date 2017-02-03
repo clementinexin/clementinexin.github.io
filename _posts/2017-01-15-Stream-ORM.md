@@ -1,5 +1,3 @@
-
-
 ---
 layout: post
 title:  "speedment - Stream ORM"

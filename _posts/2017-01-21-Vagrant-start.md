@@ -143,7 +143,7 @@ drwx------ 19 root root      4096 1月  22 18:21 ../
 -rwxrwx---  1 root root 630237184 1月  23 10:00 zh-hans_windows_xp_professional_with_service_pack_3_x86_cd_vl_x14-74070.iso*
 ```
 最终启动的结果可以如图所示：
-![image](/{{site.url}}/assets/2017/02/Qemu-start-XP.png)
+![image]({{site.url}}/assets/2017/02/Qemu-start-XP.png)
 
 ### 3.VirtualBox 虚拟机磁盘调整
 
@@ -205,10 +205,10 @@ VBoxManage modifyhd 24fb472d-11a0-4c0e-81e5-7c92fa283ee1 --resize 16384
 ## 三、KVM
 
 QEMU 是一个强大的虚拟机软件，它可以完全以软件的形式模拟出一台完整的电脑所需的所有硬件，甚至是模拟出不同架构的硬件，在这些虚拟的硬件之上，可以安装完整的操作系统。QEMU 的运行模式如下图：
-![image](/{{site.url}}/assets/2017/02/qemu_without_kvm.png)
+![image]({{site.url}}/assets/2017/02/qemu_without_kvm.png)
 
 很显然，这种完全以软件模拟硬件的形式虽然功能强大，但是性能难以满足用户的需要。模拟出的硬件的性能和物理硬件的性能相比，必然会大打折扣。为了提高虚拟机软件的性能，开发者们各显神通。其中，最常用的办法就是在主操作系统中通过内核模块开一个洞，通过这个洞将虚拟机中的操作直接映射到物理硬件上，从而提高虚拟机中运行的操作系统的性能。如下图：
-![image](/{{site.url}}/assets/2017/02/qemu_with_kvm.png)
+![image]({{site.url}}/assets/2017/02/qemu_with_kvm.png)
 
 > 其中 KVM 就是这种加速模式的典型代表。在社区中，大家常把 KVM 和 Xen 相提并论，但是它们其实完全不一样。从上图可以看出，使用内核模块加速这种模式，主操作系统仍然占主导地位，内核模块只是在主操作系统中开一个洞，用来连接虚拟机和物理硬件，给虚拟机加速，但是虚拟机中的客户操作系统仍然受到很大的限制。这种模式比较适合桌面用户使用，主操作系统仍然是他们的主战场，不管是办公还是打游戏，都通过主操作系统完成，客户操作系统只是按需使用。至于 Xen，则完全使用不同的理念，比较适合企业级用户使用
 
@@ -225,8 +225,7 @@ failed to initialize KVM: No such file or directory
 ```
 
 ### 2.KVM在虚拟机中启用的问题
-[How to fix error ‘Could not access KVM kernel module’ in Proxmox, Virtualizor, SolusVM, Redhat, CentOS and Ubuntu
-](https://bobcares.com/blog/how-to-fix-error-could-not-access-kvm-kernel-module/)
+- [How to fix error ‘Could not access KVM kernel module’ in Proxmox, Virtualizor, SolusVM, Redhat, CentOS and Ubuntu](https://bobcares.com/blog/how-to-fix-error-could-not-access-kvm-kernel-module/)
 
 #### 1.lscpu
 
@@ -298,7 +297,7 @@ irqbypass              16384  1 kvm
 [ 1828.070298] kvm: no hardware support
 
 ```
-[Libvirt错误总结](http://liuzhijun.iteye.com/blog/1783698)
+- [Libvirt错误总结](http://liuzhijun.iteye.com/blog/1783698)
 
 > 结论：在宿主机上安装的的虚拟软件中的虚拟机不支持KVM加速
 
@@ -307,7 +306,7 @@ irqbypass              16384  1 kvm
 如果用 ps -ef | grep qemu 命令查看一下，发现 kvm 命令运行的还是 qemu-system-x86_64 程序，只不过加上了 -enable-kvm 参数
 
 另外，对于桌面用户来说，有一个好用的图形化界面也是很重要的。虽然 QEMU 和 KVM 自身不带图形界面的虚拟机管理器，但是我们可以使用第 3 方软件，比如 virt-manager。只需要使用 sudo apt-get install virt-manager 即可安装该软件。该软件依赖于 libvirt，在安装过程中也会自动安装。运行 virt-manager 的效果如下图，注意必须使用 sudo 运行，因为该软件需要超级用户权限。
-![image](/{{site.url}}/assets/2017/02/VirtualBox_Ubuntu16_virtmanger.png)
+![image]({{site.url}}/assets/2017/02/VirtualBox_Ubuntu16_virtmanger.png)
 
 - [虚拟机体验之 KVM 篇](http://www.cnblogs.com/youxia/p/linux020.html)
 
@@ -319,7 +318,7 @@ irqbypass              16384  1 kvm
 　　当然，传说只是传说。我刚开始也是很纳闷，怎么可能让所有的虚拟机都直接运行于硬件之上。后来我终于知道，这只是一个噱头。虚拟机和硬件之间，还是有一个管理层的，那就是 Xen Hypervisor。当然 Xen Hypervisor 的功能毕竟是有限的，怎么样它也比不上一个操作系统，因此，在 Xen Hypervisor 上运行的虚拟机中，有一个虚拟机是具有特权的，它称之为 Domain 0，而其它的虚拟机都称之为 Domain U。
 
 　　Xen的架构如下图：
-![image](/{{site.url}}/assets/2017/02/xen.png)
+![image]({{site.url}}/assets/2017/02/xen.png)
 
 从图中可以看出，Xen 虚拟机架构中没有 Host System，在硬件层之上是薄薄的一层 Xen Hypervisor，在这之上就是各个虚拟机了，没有 Host System，只有 Domain 0，而 Guest System 都是 Domain U，不管是 Domain 0 还是 Domain U，都是虚拟机，都是被虚拟机软件管理的对象。
 
@@ -392,9 +391,8 @@ g++ -o bximage -g -O2 -D_FILE_OFFSET_BITS=64 -D_LARGE_FILES misc/bximage.o misc/
 make install 结果
 cat ./build/linux/README.linux-binary ./README > /usr/local/share/doc/bochs/README
 install -m 644 ./.bochsrc /usr/local/share/doc/bochs/bochsrc-sample.txt
-
-
 ```
+
 ### 4.启动bochs遇到的问题
 
 ```plain
@@ -527,7 +525,7 @@ boot: disk
 
 ```
 
-![image](/{{site.url}}/assets/2017/02/VirtualBox_Ubuntu16_xp_start.png)
+![image]({{site.url}}/assets/2017/02/VirtualBox_Ubuntu16_xp_start.png)
 
 ## 参考
 
