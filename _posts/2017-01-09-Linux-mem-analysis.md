@@ -200,7 +200,7 @@ echo `grep PageTables /proc/meminfo | awk '{print $2}'` KB
 
 ### Elasticsearch服务占用内存过大原因分析
 
-![image]({{site.url}}/assets/2017/02/es-stat.png)
+![image]({{site.url}}/assets/2017/01/es-stat.png)
 
 ```plain
 8651  stat("/data/elasticsearch/xxx-production-us-west-1/nodes/0/indices/playground_profile/4/index/_jqkw_Lucene41_0.tim", 0x7f0b566eb100) = -1 ENOENT (No such file or directory)

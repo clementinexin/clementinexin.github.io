@@ -75,7 +75,7 @@ http://localhost:9090/quote_rt/health
 
 ![image]({{site.url}}/assets/2017/01/Hystrix-turbine.png)
 
-![image]({{site.url}}/assets/2017/02/Hystrix-dashboard.png)
+![image]({{site.url}}/assets/2017/01/Hystrix-dashboard.png)
 
 
 ## 参考
