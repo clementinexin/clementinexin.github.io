@@ -1,3 +1,15 @@
+---
+layout: post
+title:  "Java Log StaticLoggerBinder"
+date: 2017-01-04
+categories: Java,Log
+tags: Java,Middleware,Log
+published: true
+---
+* 目录
+{:toc}
+
+
 **StaticLoggerBinder**
 
 ###Maven 依赖

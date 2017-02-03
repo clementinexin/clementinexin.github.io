@@ -1,13 +1,22 @@
 ---
 layout: post
 title:  "Hystrix"
-date: 2017-01-01
+date: 2017-01-03
 categories: Java,Middleware
 tags: Java,Middleware,Hystrix
-published: false
+published: true
 ---
 * 目录
 {:toc}
+
+
+**what**
+- 是什么
+
+**why**
+- 为什么
+
+## gradle引入依赖
 
 ```properties
 #spring boot
@@ -27,6 +36,10 @@ dependencies {
     compile 'org.springframework.cloud:spring-cloud-starter-hystrix-dashboard'
 }
 ```
+
+## Hystrix监控
+
+监控Http API
 
 ```plain
 http://localhost:9090/quote_rt/health
@@ -58,20 +71,17 @@ http://localhost:9090/quote_rt/health
 }
 ```
 
-## SpringBoot整合
+
+## 参考
+
+### SpringBoot整合
 
 - [The Netflix stack, using Spring Boot - Part 1: Eureka](https://blog.de-swaef.eu/the-netflix-stack-using-spring-boot/)
 - [The Netflix stack, using Spring Boot - Part 2: Hystrix](https://blog.de-swaef.eu/the-netflix-stack-using-spring-boot-part-2-hystrix/)
 - [The Netflix stack, using Spring Boot - Part 3: Feign](https://blog.de-swaef.eu/the-netflix-stack-using-spring-boot-part-3-feign/)
 
-## Hystrix监控
+### Hystrix监控
 
-- [](https://eacdy.gitbooks.io/spring-cloud-book/content/2%20Spring%20Cloud/2.4.1%20Hystrix.html)
-- [](https://eacdy.gitbooks.io/spring-cloud-book/content/2%20Spring%20Cloud/2.4.2%20Hystrix%20Dashboard.html)
-- [](https://eacdy.gitbooks.io/spring-cloud-book/content/2%20Spring%20Cloud/2.4.3%20Turbine.html)
-
-**what**
-- 是什么
-
-**why**
-- 为什么
+- [Hystrix](https://eacdy.gitbooks.io/spring-cloud-book/content/2%20Spring%20Cloud/2.4.1%20Hystrix.html)
+- [Hystrix Dashboard](https://eacdy.gitbooks.io/spring-cloud-book/content/2%20Spring%20Cloud/2.4.2%20Hystrix%20Dashboard.html)
+- [Turbine](https://eacdy.gitbooks.io/spring-cloud-book/content/2%20Spring%20Cloud/2.4.3%20Turbine.html)

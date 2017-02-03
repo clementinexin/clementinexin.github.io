@@ -11,3 +11,4 @@ published: false
 
 
 - [Proto REPL](https://www.youtube.com/watch?v=buPPGxOnBnk)
+- [](http://www.flyingmachinestudios.com/programming/building-a-forum-with-clojure-datomic-angular/)
